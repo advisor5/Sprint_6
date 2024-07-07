@@ -1,6 +1,5 @@
 import pytest
 import allure
-from selenium.webdriver.firefox.webdriver import WebDriver
 from page_object.main_page import MainPage
 from constants import Answers
 
@@ -22,11 +21,10 @@ class TestList:
         ['7', Answers.LIVE_OUTSIDE_THE_MOSCOW_RING]
     ]
     )
-    def test_questions_and_answers(self, number_question, number_answer, driver: WebDriver):
-        main = MainPage(driver)
-        main.scroll_to_questions()
-        main.click_questions(number_question)
+    def test_questions_and_answers(self, number_question, number_answer, main_page: MainPage):
+        main_page.scroll_to_questions()
+        main_page.click_questions(number_question)
         
-        actually_value = main.get_answer_text(number_question)
+        actually_value = main_page.get_answer_text(number_question)
         expected_value = number_answer
         assert actually_value == expected_value
